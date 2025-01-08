@@ -1,5 +1,4 @@
  const mongoose= require('mongoose');
-const { create } = require('./allSchema');
 
  const prodctSchema = new mongoose.Schema({
 
@@ -12,6 +11,10 @@ const { create } = require('./allSchema');
     },
     price:{ type:"number",
         require:true
+    },
+    discount:{
+        type:"string",
+        
     },
     description:{
         type:"string",

@@ -1,10 +1,11 @@
 
-const prodctSchema = require('../schema/prodectschema')
+
 const bcrypt= require('bcrypt');
 const nodemailer = require("nodemailer");
 
-const authschema =require('../schema/authauscham')
+const userSchema =require('../schema/userSchema')
 const otpSchema= require('../schema/otpSchema');
+const prodectschema = require('../schema/prodectschema')
 const { now } = require('mongoose');
 
 exports.ragister =(req,res)=>{
@@ -40,7 +41,7 @@ exports.ragister =(req,res)=>{
           else{
   
          
-              authschema.insertMany({name:name,email:email,mobile : mobile ,password:hash}).then((result)=>{
+              userSchema.insertMany({name:name,email:email,mobile : mobile ,password:hash,role:"user"}).then((result)=>{
                  
   
   
@@ -120,7 +121,7 @@ exports.verifyotp=(req,res)=>{
   const { email,otp,n_pass}= req.body;
 
 
-  authschema.find({email:email}).then((r1)=>{
+  userSchema.find({email:email}).then((r1)=>{
 
    if(r1.length >0){
   
@@ -152,7 +153,7 @@ exports.verifyotp=(req,res)=>{
         }
         else{
 
-          authschema.updateOne({email:email}, {$set:{password:hash}}).then((res_u)=>{
+          userSchema.updateOne({email:email}, {$set:{password:hash}}).then((res_u)=>{
 
            if(res_u.modifiedCount==1){
             res.status(201).send({status:201, message:"password update succesfully"})
@@ -214,7 +215,7 @@ exports.forgotpassword= (req, res)=>
 
     const otp = Math.floor(Math.random()* 567889).toString().padStart(6,0);
    
-    authschema.find({email:email}).then((result)=>
+    userSchema.find({email:email}).then((result)=>
     {
 
      if(result.length > 0)
@@ -244,7 +245,7 @@ exports.forgotpassword= (req, res)=>
     
                  if(result2.length >0){
     
-                  res.status(200).send({status:200,message:"otp send "})
+                  res.status(200).send({status:200,message:"Otp send SuccessFully "})
              
             
                  }
@@ -298,51 +299,6 @@ exports.forgotpassword= (req, res)=>
          
 }
 
-exports.addProdects= (req,res)=>{
-
-   
-
-    const {name,catagary,price,description,image}= req.body
-
-    
-
-prodctSchema.insertMany({name:name,catagary:catagary,price:price,description:description,image:image}).then((result)=>{
-
-    res.status(201).send({status:201,message:"prodect upload succesfully"})
-    console.log(result);
-}).catch((err)=>{
-
-
-    
-
-console.log(err.message);
-
-
- if(err.name =='ValidationError'){
-
-    res.status(500).send({  status:500,message:` ${err.message.split(':')[1]} is require`})
-
-
- }else if(err.name =='MongoBulkWriteError'){
-
-let value= err.message;
-let split =value.split(':')
-
-    res.status(500).send( {status:500,message:`   ${split[3].replace('{',"")} : ${ split[4].replace("}","")}is   allready exist `});
- }
- else{
-
-    res.send("some thing went wrong");
- }
-
-})
-}
-
-
-
-
-
-
 exports.login = (req, res) => {
 
   const { email, password } = req.body;
@@ -354,7 +310,7 @@ exports.login = (req, res) => {
 
 
 
-      authschema.find({ email: email }).then((result) => {
+      userSchema.find({ email: email }).then((result) => {
 
           bcrypt.compare(password, result[0].password, function (err, auth) {
 
@@ -366,9 +322,9 @@ exports.login = (req, res) => {
 
                   if (auth == true) {
 
-                      const { id, name, email, mobile } = result[0];
+                      const { id, name, email, mobile ,role} = result[0];
 
-                      res.status(200).send({ status: 200, message: "user login  successfully", data: { _id: id, name: name, email: email, mobile: mobile } })
+                      res.status(200).send({ status: 200, message: "user login  successfully", data: { _id: id, name: name, email: email, mobile: mobile,role:role } })
                   }
                   else {
 
@@ -391,6 +347,22 @@ exports.login = (req, res) => {
 
 }
 
+
+
+exports.getallProdects= (req,res)=>{
+
+  prodectschema.find({}).then((res1)=>{
+
+    if(res1.length>0){
+      res.send({data:res1});
+    }else{
+
+      res.send({data:[],message:"procts not axist"})
+    }
+  }).catch((err)=>{
+    res.send('something went wronmg')
+  })
+}
 
 
 

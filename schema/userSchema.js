@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const authschema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
     name:{ type:"string",
             require:true,
@@ -30,6 +30,6 @@ const authschema = new mongoose.Schema({
 })
 
 
-const  authdata= mongoose.model('authdata',authschema);
+const  authdata= mongoose.model('userData',userSchema);
 
 module.exports=authdata;
