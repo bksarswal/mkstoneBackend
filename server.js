@@ -18,6 +18,6 @@ const ragister_admin= require('./Data/ragister_Admin')
 app.use('/admin',adminRouter)
 app.use('/user', userRouter);
 
-app.listen(PORT,'0.0.0.0', ()=>{
+app.listen(PORT, ()=>{
     console.log(`Server is start on port:${PORT}`);
 })
