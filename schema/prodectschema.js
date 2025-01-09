@@ -9,7 +9,7 @@
         type:"string",
         require:true
     },
-    price:{ type:"number",
+    price:{ type:"string",
         require:true
     },
     discount:{
