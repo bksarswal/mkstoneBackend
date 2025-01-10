@@ -6,7 +6,7 @@ const PORT=  process.env.PORT||8879;
 const bodyParser= require('body-parser');
 const cors = require('cors');
 
-app.use(cors());
+app.use(cors()); 
 
 
 app.use(bodyParser.json());
