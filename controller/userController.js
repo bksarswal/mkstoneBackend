@@ -6,23 +6,53 @@ const nodemailer = require("nodemailer");
 const userSchema =require('../schema/userSchema')
 const otpSchema= require('../schema/otpSchema');
 const prodectschema = require('../schema/prodectschema')
-const { now } = require('mongoose');
+const   Cartschema = require('../schema/addtocards')
+
+
+
+
+
+exports.getToCarts= (req,res)=>{
+
+
+  const {u_id}= req.body;
+
+
+  Cartschema.find({u_id:u_id}).then((r1)=>{
+
+    res.status(200).send({status:200,message:"user card dat is ",data:r1})
+  })
+}
+
+
+
+exports.addToCart= (req,res)=>{
+ 
+  const {u_id,P_id}= req.body;
+
+  
+  Cartschema.insertMany({u_id:u_id, p_id:P_id,quantity:1,timestamp:Number( new Date()) }).then((res1)=>{
+    if(res1.length<0){
+   res.status(400).send({status:400,  message:"Prodect NOt Add to cart "})
+    }else{
+
+      res.send("add to card successfully")
+    }
+
+  }).catch((err)=>{
+    res.status(400).send({status:400,  message:"Prodect NOt Add to cart "})
+  })
+
+
+}
 
 exports.ragister =(req,res)=>{
-
-
-   
-
-  const {name, mobile,email ,password}= req.body;
-  
-  
-  
+  const {name, mobile,email ,password}= req.body
   if(!password){
   
       res.send('password is required ')
   }
   else{
-  
   
   bcrypt.genSalt(10,function(err,salt){
       if(err){

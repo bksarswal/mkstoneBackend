@@ -1,20 +1,10 @@
 
 const prodctSchema = require('../schema/prodectschema')
 const bcrypt= require('bcrypt');
-
-
-
-
-
         exports.addProdects= (req,res)=>{
-
-   
-
             const {name,catagary,price,discount,description,image}= req.body
-        
-            
-
-            prodctSchema.find({name:name}).then((r1)=>{
+      
+                    prodctSchema.find({name:name}).then((r1)=>{
               if(r1.length>0){
 
                 res.send({message:`prodect Allreday exist with this ${name} name`})
