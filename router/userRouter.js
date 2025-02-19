@@ -11,7 +11,7 @@ userRouter.post('/verify-otp',userController.verifyotp);
 userRouter.post('/reset',userController.forgotpassword);
 userRouter.post('/getprotects',userController.getallProdects);
 userRouter.post('/addtocart',userController.addToCart);
-userRouter.post('/gettocart',userController.getToCarts)
+userRouter.get('/gettocart',userController.getToCarts)
 
 
 module.exports =userRouter;
