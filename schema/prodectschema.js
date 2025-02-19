@@ -2,27 +2,27 @@
 
  const prodctSchema = new mongoose.Schema({
 
-    name:{ type:"string",
-        require:true
+    name:{ type:String,
+        required:true
     },
     catagary:{
-        type:"string",
-        require:true
+        type:String,
+        required:true
     },
-    price:{ type:"string",
-        require:true
+    price:{ type:String,
+        required:true
     },
     discount:{
-        type:"string",
+        type:String,
         
     },
     description:{
-        type:"string",
-        require:true
+        type:String,
+        required:true
     },
     image:{
-        type:"string",
-        require:true
+        type:String,
+        required:true
     }
  })
 

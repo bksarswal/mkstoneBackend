@@ -21,6 +21,9 @@ exports.getToCarts= (req,res)=>{
   Cartschema.find({u_id:u_id}).then((r1)=>{
 
     res.status(200).send({status:200,message:"user card dat is ",data:r1})
+  }).catch((err)=>{
+
+    res.status(500).send({status:500,  message:"Prodect NOt Add to cart||try again "});
   })
 }
 
@@ -32,15 +35,16 @@ exports.addToCart= (req,res)=>{
 
   
   Cartschema.insertMany({u_id:u_id, p_id:P_id,quantity:1,timestamp:Number( new Date()) }).then((res1)=>{
-    if(res1.length<0){
-   res.status(400).send({status:400,  message:"Prodect NOt Add to cart "})
+    if(res1.length > 0){
+      res.status(200).send( {status:200, message:"add to card successfully"});
+   
     }else{
 
-      res.send("add to card successfully")
+      res.status(500).send({status:500,message:"something went wrong"})
     }
 
   }).catch((err)=>{
-    res.status(400).send({status:400,  message:"Prodect NOt Add to cart "})
+    res.status(500).send({status:500,message:"something went wrong"})
   })
 
 

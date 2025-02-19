@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 
 const otpSchema= new mongoose.Schema({
 
-    uid:{ type:"string",
+    uid:{ type:String,
             required:true,
             
 
          },
-    otp:{ type:"string",
+    otp:{ type:String,
             required:true,
             
 
          },
-    time:{ type:"string",
+    time:{ type:String,
             required:true,
             
 

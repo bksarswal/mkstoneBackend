@@ -9,7 +9,7 @@ userRouter.post('/login',userController.login);
 userRouter.post('/sendmail',userController.sendmail);
 userRouter.post('/verify-otp',userController.verifyotp);
 userRouter.post('/reset',userController.forgotpassword);
-userRouter.get('/getprotects',userController.getallProdects);
+userRouter.post('/getprotects',userController.getallProdects);
 userRouter.post('/addtocart',userController.addToCart);
 userRouter.post('/gettocart',userController.getToCarts)
 

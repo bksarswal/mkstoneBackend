@@ -1,6 +1,7 @@
 
 const prodctSchema = require('../schema/prodectschema')
 const bcrypt= require('bcrypt');
+
         exports.addProdects= (req,res)=>{
             const {name,catagary,price,discount,description,image}= req.body
       

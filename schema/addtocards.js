@@ -6,13 +6,13 @@ const mongoose= require('mongoose');
   const Cartschema= new mongoose.Schema(
     {
        p_id:{
-          type:Number,
+          type:String,
           required:true
 
        },
        u_id:{
 
-        type:Number,
+        type:String,
         required:true
        },
        

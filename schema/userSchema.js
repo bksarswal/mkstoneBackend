@@ -2,34 +2,34 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
 
-    name:{ type:"string",
-            require:true,
+    name:{ type:String ,
+            required:true,
             
 
          },
 
          mobile:{
-            type:"string",
-            require:true,
+            type:String ,
+            required:true,
             unique:true
          },
          email:{
-            type:"string",
-            require:true,
+            type:String ,
+            required:true,
             unique:true
          },
          password:{
-            type:"string",
-            require:true,
+            type:String ,
+            required:true,
             
          },
          role:{
-            type:"string",
-            require:true
+            type:String ,
+            required:true
          }
 })
 
 
-const  authdata= mongoose.model('userData',userSchema);
+const  authdata = mongoose.model('userData',userSchema);
 
 module.exports=authdata;
